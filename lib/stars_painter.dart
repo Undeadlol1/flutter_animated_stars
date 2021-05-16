@@ -22,8 +22,8 @@ class StarsPainter extends CustomPainter {
       drawAStar(
         size: size,
         canvas: canvas,
-        horizontalPositon: (size.width / 2),
-        verticalPosition: size.height / 2 + (i * 13),
+        horizontalPositon: (size.width / 4),
+        verticalPosition: (size.height / 8) + (i * 13),
       );
     }
   }
