@@ -1,12 +1,11 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 Paint _starPaint = Paint()..color = Colors.white;
 
 class StarsPainter extends CustomPainter {
   double starPosition = 0.0;
-  bool _shouldStarMove = true;
-  StarsPainter({this.starPosition});
+
+  StarsPainter({required this.starPosition});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -18,46 +17,67 @@ class StarsPainter extends CustomPainter {
       ),
     );
     canvas.drawColor(Colors.black, BlendMode.clear);
-    _drawStarHead(canvas, size);
-    _drawStarTail(canvas, size);
+
+    for (var i = 0; i < 10; i++) {
+      drawAStar(
+        size: size,
+        canvas: canvas,
+        horizontalPositon: (size.width / 2),
+        verticalPosition: size.height / 2 + (i * 13),
+      );
+    }
   }
 
-  void _drawStarHead(Canvas canvas, Size size) {
+  void drawAStar({
+    required Size size,
+    required Canvas canvas,
+    required double horizontalPositon,
+    required double verticalPosition,
+  }) {
+    _drawStarHead(
+      size: size,
+      canvas: canvas,
+      position: Offset(horizontalPositon, verticalPosition),
+    );
+    _drawStarTail(
+      size: size,
+      canvas: canvas,
+      verticalPosition: verticalPosition,
+      horizontalPositon: horizontalPositon,
+    );
+  }
+
+  void _drawStarHead({
+    required Size size,
+    required Canvas canvas,
+    required Offset position,
+  }) {
     canvas.drawCircle(
-      Offset((size.width / 2) * (_shouldStarMove ? starPosition : 1),
-          size.height / 2),
-      3,
+      position,
+      2,
       _starPaint,
     );
   }
 
-  void _drawStarTail(Canvas canvas, Size size) {
-    debugPrint('size: ${size}');
+  void _drawStarTail({
+    required Size size,
+    required Canvas canvas,
+    required double verticalPosition,
+    required double horizontalPositon,
+  }) {
     final color = _starPaint;
-    final horizontalCenter = size.width / 2;
-    final verticallyCenter = size.height / 2;
+    final double marginBetweenHeadAndTail = 10;
 
-    canvas.drawCircle(
-      Offset(
-        horizontalCenter * (_shouldStarMove ? starPosition : 1) -
-            Random().nextInt(100),
-        verticallyCenter + (Random().nextBool() ? 1 : -1) * Random().nextInt(5),
-      ),
-      1,
-      color,
-    );
-
-    // for (var i = 0; i < 25; i++) {
-    //   canvas.drawCircle(
-    //     Offset(
-    //       horizontalCenter - Random().nextInt(100),
-    //       verticallyCenter +
-    //           (Random().nextBool() ? 1 : -1) * Random().nextInt(5),
-    //     ),
-    //     1,
-    //     color,
-    //   );
-    // }
+    for (var i = 0; i < 100; i++) {
+      canvas.drawCircle(
+        Offset(
+          horizontalPositon - marginBetweenHeadAndTail - (1 * i),
+          verticalPosition,
+        ),
+        1,
+        color,
+      );
+    }
   }
 
   @override

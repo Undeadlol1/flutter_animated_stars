@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_stars/stars_painter.dart';
 
 class Star extends StatefulWidget {
-  const Star({Key key}) : super(key: key);
+  const Star({Key? key}) : super(key: key);
 
   @override
   _StarState createState() => _StarState();
 }
 
-class _StarState extends State<Star> with TickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController controller;
+class _StarState extends State<Star> with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
   Tween<double> _movementTween = Tween(begin: -Math.pi, end: Math.pi);
 
   @override
@@ -26,6 +26,7 @@ class _StarState extends State<Star> with TickerProviderStateMixin {
     animation = _movementTween.animate(controller)
       ..addListener(() => setState(() {}))
       ..addStatusListener((status) {
+        debugPrint('status: $status');
         if (status == AnimationStatus.completed) {
           controller.repeat();
         } else if (status == AnimationStatus.dismissed) {
@@ -33,7 +34,7 @@ class _StarState extends State<Star> with TickerProviderStateMixin {
         }
       });
 
-    controller.forward();
+    // controller.forward();
   }
 
   @override
