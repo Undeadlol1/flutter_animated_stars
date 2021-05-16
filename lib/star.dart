@@ -12,7 +12,7 @@ class Star extends StatefulWidget {
 class _StarState extends State<Star> with TickerProviderStateMixin {
   Animation<double> animation;
   AnimationController controller;
-  Tween<double> _rotationTween = Tween(begin: -Math.pi, end: Math.pi);
+  Tween<double> _movementTween = Tween(begin: -Math.pi, end: Math.pi);
 
   @override
   void initState() {
@@ -20,10 +20,10 @@ class _StarState extends State<Star> with TickerProviderStateMixin {
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 7),
     );
 
-    animation = _rotationTween.animate(controller)
+    animation = _movementTween.animate(controller)
       ..addListener(() => setState(() {}))
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -44,12 +44,13 @@ class _StarState extends State<Star> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        child: Container(),
-        painter: StarsPainter(
-          starPosition: animation.value,
-        ),
+    return CustomPaint(
+      child: SizedBox(
+        width: 500,
+        height: 500,
+      ),
+      painter: StarsPainter(
+        starPosition: animation.value,
       ),
     );
   }

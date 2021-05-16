@@ -38,11 +38,7 @@ class MyHomePage extends StatelessWidget {
         // the App.build method, and use it to set our appbar title.
         title: Text(title),
       ),
-      body: Center(
-        child: Star(),
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-      ),
+      body: Star(),
     );
   }
 }
