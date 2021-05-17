@@ -10,22 +10,78 @@ class StarsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.clipRect(
-      Rect.fromCenter(
-        width: size.width,
-        height: size.height,
-        center: Offset(0, 0),
+      Rect.fromPoints(
+        Offset(0, 0),
+        Offset(size.width, size.height),
       ),
     );
     canvas.drawColor(Colors.black, BlendMode.clear);
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2),
+      100,
+      Paint()..color = Colors.red,
+    );
+    _drawCanvasBorders(canvas, size);
+    _drawCrossSection(canvas, size);
+    // for (var i = 0; i < 10; i++) {
+    //   drawAStar(
+    //     size: size,
+    //     canvas: canvas,
+    //     horizontalPositon: (size.width / 4),
+    //     verticalPosition: (size.height / 8) + (i * 13),
+    //   );
+    // }
+  }
 
-    for (var i = 0; i < 10; i++) {
-      drawAStar(
-        size: size,
-        canvas: canvas,
-        horizontalPositon: (size.width / 4),
-        verticalPosition: (size.height / 8) + (i * 13),
-      );
-    }
+  void _drawCrossSection(Canvas canvas, Size size) {
+    debugPrint('size.width: ${size.width}');
+    debugPrint('size.height: ${size.height}');
+    var paint = Paint()
+      ..strokeWidth = 2
+      ..color = Colors.deepPurple;
+
+    canvas.drawCircle(
+      Offset(size.width, 0),
+      20,
+      _starPaint,
+    );
+    canvas.drawLine(
+      Offset(0, 0),
+      Offset(size.width, size.height),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width, 0),
+      Offset(0, size.height),
+      paint,
+    );
+  }
+
+  void _drawCanvasBorders(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..strokeWidth = 10
+      ..color = Colors.deepPurple;
+
+    canvas.drawLine(
+      Offset(0, 0),
+      Offset(size.width, 0),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width, 0),
+      Offset(size.width, size.height),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(0, 0),
+      Offset(0, size.height),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(0, size.height),
+      Offset(size.width, size.height),
+      paint,
+    );
   }
 
   void drawAStar({

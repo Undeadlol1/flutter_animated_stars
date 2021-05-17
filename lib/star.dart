@@ -45,10 +45,15 @@ class _StarState extends State<Star> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    debugPrint('screen width: ${width}');
+    debugPrint('screen height: ${height}');
+
     return CustomPaint(
       child: SizedBox(
-        width: 500,
-        height: 500,
+        width: width,
+        height: 250,
       ),
       painter: StarsPainter(
         starPosition: animation.value,
