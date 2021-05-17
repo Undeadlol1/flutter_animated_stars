@@ -1,3 +1,4 @@
+import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 
 Paint _starPaint = Paint()..color = Colors.white;
@@ -23,18 +24,36 @@ class StarsPainter extends CustomPainter {
     canvas.drawColor(Colors.black, BlendMode.clear);
     _drawCanvasBorders();
     _drawCrossSection();
+    _drawMultipleStars();
+  }
 
-    for (var i = 0; i < 1; i++) {
+  void _drawMultipleStars() {
+    final verticalMiddle = (_size.height / 2);
+    final horizontalCenter = (_size.width / 2);
+
+    for (var i = 0; i < 10; i++) {
+      final additionalVerticalPosition =
+          (starPosition * (i.isEven ? -1 : 1)) * (i.isOdd ? 1 : -1);
+      final additionalHorizontalPosition = (starPosition * (i.isEven ? -1 : 1));
       drawAStar(
-        horizontalPositon: (size.width / 2) + i,
-        verticalPosition: (size.height / 2) + i,
+        verticalPosition: verticalMiddle + additionalVerticalPosition,
+        horizontalPositon: horizontalCenter + additionalHorizontalPosition,
       );
     }
+
+    drawAStar(
+      verticalPosition: verticalMiddle + (starPosition * 1 * -1),
+      horizontalPositon: horizontalCenter + (starPosition * 1 * -1),
+    );
+    drawAStar(
+      verticalPosition: verticalMiddle + (starPosition * 1 * -1),
+      horizontalPositon: horizontalCenter + (starPosition * 1 * 1),
+    );
   }
 
   void _drawCrossSection() {
-    debugPrint('size.width: ${_size.width}');
-    debugPrint('size.height: ${_size.height}');
+    // debugPrint('size.width: ${_size.width}');
+    // debugPrint('size.height: ${_size.height}');
     final paint = Paint()
       ..strokeWidth = 2
       ..color = Colors.deepPurple;
@@ -88,8 +107,8 @@ class StarsPainter extends CustomPainter {
       position: Offset(horizontalPositon, verticalPosition),
     );
     // _drawStarTail(
-    //   size: size,
-    //   canvas: canvas,
+    //   size: _size,
+    //   canvas: _canvas,
     //   verticalPosition: verticalPosition,
     //   horizontalPositon: horizontalPositon,
     // );

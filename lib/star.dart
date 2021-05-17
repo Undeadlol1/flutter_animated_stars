@@ -12,7 +12,7 @@ class Star extends StatefulWidget {
 class _StarState extends State<Star> with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
-  Tween<double> _movementTween = Tween(begin: -Math.pi, end: Math.pi);
+  Tween<double> _movementTween = Tween(begin: 0, end: 100);
 
   @override
   void initState() {
@@ -20,7 +20,7 @@ class _StarState extends State<Star> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 7),
+      duration: Duration(seconds: 2),
     );
 
     animation = _movementTween.animate(controller)
@@ -34,7 +34,7 @@ class _StarState extends State<Star> with SingleTickerProviderStateMixin {
         }
       });
 
-    // controller.forward();
+    controller.forward();
   }
 
   @override
@@ -47,13 +47,13 @@ class _StarState extends State<Star> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    debugPrint('screen width: ${width}');
-    debugPrint('screen height: ${height}');
+    // debugPrint('screen width: $width');
+    // debugPrint('screen height: $height');
 
     return CustomPaint(
       child: SizedBox(
-        width: width,
         height: 250,
+        width: width,
       ),
       painter: StarsPainter(
         starPosition: animation.value,
