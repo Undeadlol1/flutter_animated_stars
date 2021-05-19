@@ -1,17 +1,29 @@
+import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Star extends StatelessWidget {
   final double angle;
-  Star({Key? key, this.angle = 0}) : super(key: key);
+  // TODO rename
+  final double animationValue;
+  Star({
+    Key? key,
+    this.angle = 0,
+    this.animationValue = 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // rotate the canvas
+    final radians = angle * Math.pi / 180;
     // TODO use RotationTransition?
-    return Transform.rotate(
-      angle: angle,
-      child: CustomPaint(
-        painter: _StarPainter(starPosition: 0),
+    return Transform.translate(
+      offset: Offset(0, 0 + animationValue),
+      child: Transform.rotate(
+        angle: radians,
+        child: CustomPaint(
+          painter: _StarPainter(starPosition: 0),
+        ),
       ),
     );
   }

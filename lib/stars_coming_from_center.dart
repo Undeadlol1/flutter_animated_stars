@@ -11,40 +11,41 @@ class StarsComingFromCenter extends StatefulWidget {
 class _StarsComingFromCenterState extends State<StarsComingFromCenter>
     with SingleTickerProviderStateMixin {
   late Animation<double> animation;
-  late AnimationController controller;
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
 
-    controller = AnimationController(
+    animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 5),
     );
 
-    animation = Tween<double>(begin: 0, end: 12).animate(controller)
-      ..addListener(() => setState(() {}))
+    animation = Tween<double>(begin: 0, end: 100).animate(animationController)
+      ..addListener(() => setState(() => {}))
       ..addStatusListener((status) {
         debugPrint('status: $status');
         if (status == AnimationStatus.completed) {
-          controller.repeat();
+          animationController.repeat();
         } else if (status == AnimationStatus.dismissed) {
-          controller.forward();
+          animationController.forward();
         }
       });
 
-    controller.forward();
+    animationController.forward();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final double height = 200;
+
     return Container(
       height: height,
       child: Stack(
@@ -53,17 +54,20 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
           Positioned(
             width: 200,
             left: height / 2,
-            child: Star(angle: animation.value),
+            child: Star(
+              angle: 180,
+              animationValue: animation.value,
+            ),
           ),
           Positioned(
-            width: 200,
+            width: 100,
             left: height / 2,
             child: Star(angle: 100),
           ),
           Positioned(
             width: 200,
             left: height / 2,
-            child: Star(angle: 180),
+            child: Star(angle: 30),
           )
         ],
       ),
