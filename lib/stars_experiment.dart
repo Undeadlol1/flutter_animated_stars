@@ -1,15 +1,15 @@
-import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_stars/stars_painter.dart';
 
-class Star extends StatefulWidget {
-  const Star({Key? key}) : super(key: key);
+class StarsExperiment extends StatefulWidget {
+  const StarsExperiment({Key? key}) : super(key: key);
 
   @override
-  _StarState createState() => _StarState();
+  _StarsExperimentState createState() => _StarsExperimentState();
 }
 
-class _StarState extends State<Star> with SingleTickerProviderStateMixin {
+class _StarsExperimentState extends State<StarsExperiment>
+    with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
   Tween<double> _movementTween = Tween(begin: 0, end: 100);
@@ -46,7 +46,7 @@ class _StarState extends State<Star> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    // double height = MediaQuery.of(context).size.height;
     // debugPrint('screen width: $width');
     // debugPrint('screen height: $height');
 

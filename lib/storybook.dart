@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dashbook/dashbook.dart';
+import 'package:flutter_animated_stars/stars_experiment.dart';
 
 class Storybook extends StatelessWidget {
   const Storybook({Key? key}) : super(key: key);
@@ -47,6 +48,11 @@ class Storybook extends StatelessWidget {
             child: Text('Ok'),
             onPressed: () {},
           ),
+        );
+
+    dashbook.storiesOf('Star').decorator(CenterDecorator()).add(
+          'default',
+          (ctx) => StarsExperiment(),
         );
 
     return Container(child: dashbook);

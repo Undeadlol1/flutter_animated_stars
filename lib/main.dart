@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_stars/star.dart';
+import 'package:flutter_animated_stars/stars_experiment.dart';
 import 'package:flutter_animated_stars/storybook.dart';
 
 void main() {
@@ -40,7 +40,7 @@ class MyHomePage extends StatelessWidget {
         // the App.build method, and use it to set our appbar title.
         title: Text(title),
       ),
-      body: Star(),
+      body: StarsExperiment(),
     );
   }
 }
