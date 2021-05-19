@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  dashbook: 0.1.2
   flutter_test:
     sdk: flutter
 
