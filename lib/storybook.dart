@@ -1,6 +1,7 @@
 import 'package:dashbook/dashbook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_stars/star.dart';
+import 'package:flutter_animated_stars/stars_coming_from_center.dart';
 
 class Storybook extends StatelessWidget {
   const Storybook({Key? key}) : super(key: key);
@@ -42,14 +43,6 @@ class Storybook extends StatelessWidget {
           ),
         );
 
-    dashbook.storiesOf('RaisedButton').decorator(CenterDecorator()).add(
-          'default',
-          (ctx) => ElevatedButton(
-            child: Text('Ok'),
-            onPressed: () {},
-          ),
-        );
-
     dashbook.storiesOf('Star').decorator(CenterDecorator()).add(
           'default',
           (ctx) => DecoratedBox(
@@ -67,6 +60,11 @@ class Storybook extends StatelessWidget {
             ),
           ),
         );
+
+    dashbook
+        .storiesOf('StarsComingFromCenter')
+        .decorator(CenterDecorator())
+        .add('default', (ctx) => StarsComingFromCenter());
 
     return Container(child: dashbook);
   }

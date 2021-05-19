@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Star extends StatelessWidget {
-  const Star({Key? key}) : super(key: key);
+  final double angle;
+  Star({Key? key, this.angle = 0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // TODO use RotationTransition?
     return Transform.rotate(
-      angle: 180,
+      angle: angle,
       child: CustomPaint(
         painter: _StarPainter(starPosition: 0),
       ),
