@@ -1,4 +1,3 @@
-import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 
 Paint _starPaint = Paint()..color = Colors.white;
@@ -106,12 +105,12 @@ class StarsPainter extends CustomPainter {
       canvas: _canvas,
       position: Offset(horizontalPositon, verticalPosition),
     );
-    // _drawStarTail(
-    //   size: _size,
-    //   canvas: _canvas,
-    //   verticalPosition: verticalPosition,
-    //   horizontalPositon: horizontalPositon,
-    // );
+    _drawStarTail(
+      size: _size,
+      canvas: _canvas,
+      verticalPosition: verticalPosition,
+      horizontalPositon: horizontalPositon,
+    );
   }
 
   void _drawStarHead({
@@ -132,17 +131,16 @@ class StarsPainter extends CustomPainter {
     required double verticalPosition,
     required double horizontalPositon,
   }) {
-    final color = _starPaint;
     final double marginBetweenHeadAndTail = 10;
 
     for (var i = 0; i < 100; i++) {
       canvas.drawCircle(
         Offset(
           horizontalPositon - marginBetweenHeadAndTail - (1 * i),
-          verticalPosition,
+          verticalPosition - marginBetweenHeadAndTail,
         ),
         1,
-        color,
+        _starPaint,
       );
     }
   }

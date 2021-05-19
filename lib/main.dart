@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_stars/star.dart';
+import 'package:flutter_animated_stars/storybook.dart';
 
 void main() {
-  runApp(MyApp());
+  // runApp(MyApp());
+  runApp(Storybook());
 }
 
 class MyApp extends StatelessWidget {
