@@ -47,36 +47,22 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          _buildAnimatedPositioned(),
-          Positioned(
-            width: starWidth,
-            left: containerHeight / 2,
-            child: Star(
-              angle: 100,
-              animationValue: animation.value,
-            ),
-          ),
-          Positioned(
-            width: starWidth,
-            left: containerHeight / 2,
-            child: Star(
-              angle: 30,
-              animationValue: animation.value,
-            ),
-          )
+          _buildAnimatedStar(angle: 30),
+          _buildAnimatedStar(angle: 100),
+          _buildAnimatedStar(angle: 180),
         ],
       ),
     );
   }
 
-  AnimatedPositioned _buildAnimatedPositioned() {
+  Widget _buildAnimatedStar({required double angle}) {
     return AnimatedPositioned(
       width: starWidth,
       top: containerHeight / 2,
       left: containerHeight / 2,
       duration: Duration(seconds: 3),
       child: Star(
-        angle: 180,
+        angle: angle,
         animationValue: animation.value,
       ),
     );
