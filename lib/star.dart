@@ -1,52 +1,41 @@
-import 'dart:math' as Math;
 import 'dart:ui';
+import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Star extends StatelessWidget {
   final double angle;
   // TODO rename
-  final double animationValue;
+  final double animationValueInPercentages;
   Star({
     Key? key,
     this.angle = 0,
-    this.animationValue = 0,
+    this.animationValueInPercentages = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final degrees = 15;
-    final radians = angle * Math.pi / 180;
-    return Transform.translate(
-      offset: _getOffset(),
-      child: Transform.rotate(
-        angle: radians,
+    final radians = angle * Math.pi / 360;
+    return Transform.rotate(
+      angle: radians,
+      child: Transform.translate(
+        offset: _getOffset(),
         child: CustomPaint(
-          painter: _StarPainter(starPosition: 0),
+          painter: _StarPainter(),
         ),
       ),
     );
   }
 
   Offset _getOffset() {
-    Offset center = Offset(animationValue, animationValue);
-
-    // TODO remove "200"
-    double x = 200 * Math.cos(angle) + center.dx;
-    double y = 200 * Math.sin(angle) + center.dy;
-
-    // return Offset(x, y);
-    return Offset(0, 0);
+    return Offset(0, animationValueInPercentages);
   }
 }
 
 class _StarPainter extends CustomPainter {
   late Size _size;
   late Canvas _canvas;
-  double starPosition = 0.0;
   Paint _whitePaint = Paint()..color = Colors.white;
-
-  _StarPainter({required this.starPosition});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -70,7 +59,7 @@ class _StarPainter extends CustomPainter {
     // _canvas.drawPoints(PointMode.points, [Offset(0, 1)], _whitePaint);
     for (var i = 0; i < 10; i++) {
       _canvas.drawCircle(
-        Offset(_size.width / 2 - (14 + i * 5), _size.height / 2),
+        Offset(_size.width / 2, _size.height / 2 - (14 + i * 5)),
         1,
         _whitePaint,
       );
@@ -78,11 +67,11 @@ class _StarPainter extends CustomPainter {
   }
 
   void _trimAndPaintCanvas() {
-    final paddingBetweenStarAndCanvasEdge = 5;
+    final canvasPadding = 5;
     _canvas.clipRect(
       Rect.fromPoints(
-        Offset(0, _size.height / 2 - paddingBetweenStarAndCanvasEdge),
-        Offset(_size.width, _size.height / 2 + paddingBetweenStarAndCanvasEdge),
+        Offset((_size.width / 2) + canvasPadding, 0.0),
+        Offset((_size.width / 2) - canvasPadding, _size.width),
       ),
     );
     _canvas.drawPaint(Paint()..color = Colors.red);

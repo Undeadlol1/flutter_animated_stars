@@ -47,9 +47,10 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          _buildAnimatedStar(angle: 30),
-          _buildAnimatedStar(angle: 100),
+          _buildAnimatedStar(angle: 0),
           _buildAnimatedStar(angle: 180),
+          _buildAnimatedStar(angle: 540),
+          _buildAnimatedStar(angle: 360),
         ],
       ),
     );
@@ -63,7 +64,7 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
       duration: Duration(seconds: 3),
       child: Star(
         angle: angle,
-        animationValue: animation.value,
+        animationValueInPercentages: animation.value,
       ),
     );
   }
