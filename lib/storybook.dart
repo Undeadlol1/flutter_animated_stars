@@ -24,7 +24,7 @@ class Storybook extends StatelessWidget {
                 maxHeight: 200,
               ),
               child: Star(
-                animationValueInPercentages: ctx.numberProperty(
+                animationProgressInPercentages: ctx.numberProperty(
                   'animation percentage',
                   0,
                 ),

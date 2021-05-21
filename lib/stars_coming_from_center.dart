@@ -29,7 +29,7 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
       ..addListener(() => setState(() => {}))
       ..addStatusListener(_repeatAnimationWhenCompleted);
 
-    animationController.forward();
+    // animationController.forward();
   }
 
   @override
@@ -57,14 +57,13 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
   }
 
   Widget _buildAnimatedStar({required double angle}) {
-    return AnimatedPositioned(
+    return Positioned(
       width: starWidth,
       top: containerHeight / 2,
       left: containerHeight / 2,
-      duration: Duration(seconds: 3),
       child: Star(
         angle: angle,
-        animationValueInPercentages: animation.value,
+        animationProgressInPercentages: 50,
       ),
     );
   }

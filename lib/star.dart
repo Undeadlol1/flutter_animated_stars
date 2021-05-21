@@ -5,12 +5,11 @@ import 'package:flutter/rendering.dart';
 
 class Star extends StatelessWidget {
   final double angle;
-  // TODO rename
-  final double animationValueInPercentages;
+  final double animationProgressInPercentages;
   Star({
     Key? key,
     this.angle = 0,
-    this.animationValueInPercentages = 0,
+    this.animationProgressInPercentages = 0,
   }) : super(key: key);
 
   @override
@@ -19,16 +18,12 @@ class Star extends StatelessWidget {
     return Transform.rotate(
       angle: radians,
       child: Transform.translate(
-        offset: _getOffset(),
+        offset: Offset(0, animationProgressInPercentages),
         child: CustomPaint(
           painter: _StarPainter(),
         ),
       ),
     );
-  }
-
-  Offset _getOffset() {
-    return Offset(0, animationValueInPercentages);
   }
 }
 
