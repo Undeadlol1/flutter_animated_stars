@@ -10,6 +10,9 @@ class StarsComingFromCenter extends StatefulWidget {
 
 class _StarsComingFromCenterState extends State<StarsComingFromCenter>
     with SingleTickerProviderStateMixin {
+  final double starWidth = 200;
+  final double containerHeight = 200;
+
   late Animation<double> animation;
   late AnimationController animationController;
 
@@ -24,14 +27,7 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
 
     animation = Tween<double>(begin: 0, end: 100).animate(animationController)
       ..addListener(() => setState(() => {}))
-      ..addStatusListener((status) {
-        debugPrint('status: $status');
-        if (status == AnimationStatus.completed) {
-          animationController.repeat();
-        } else if (status == AnimationStatus.dismissed) {
-          animationController.forward();
-        }
-      });
+      ..addStatusListener(_repeatAnimationWhenCompleted);
 
     animationController.forward();
   }
@@ -44,35 +40,53 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
 
   @override
   Widget build(BuildContext context) {
-    final double height = 200;
-
     return Container(
-      height: height,
+      color: Colors.black,
+      width: double.infinity,
+      height: containerHeight,
       child: Stack(
         alignment: Alignment.center,
         children: [
+          _buildAnimatedPositioned(),
           Positioned(
-            width: 200,
-            left: height / 2,
+            width: starWidth,
+            left: containerHeight / 2,
             child: Star(
-              angle: 180,
+              angle: 100,
               animationValue: animation.value,
             ),
           ),
           Positioned(
-            width: 100,
-            left: height / 2,
-            child: Star(angle: 100),
-          ),
-          Positioned(
-            width: 200,
-            left: height / 2,
-            child: Star(angle: 30),
+            width: starWidth,
+            left: containerHeight / 2,
+            child: Star(
+              angle: 30,
+              animationValue: animation.value,
+            ),
           )
         ],
       ),
-      color: Colors.black,
-      width: double.infinity,
     );
+  }
+
+  AnimatedPositioned _buildAnimatedPositioned() {
+    return AnimatedPositioned(
+      width: starWidth,
+      top: containerHeight / 2,
+      left: containerHeight / 2,
+      duration: Duration(seconds: 3),
+      child: Star(
+        angle: 180,
+        animationValue: animation.value,
+      ),
+    );
+  }
+
+  void _repeatAnimationWhenCompleted(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      animationController.repeat();
+    } else if (status == AnimationStatus.dismissed) {
+      animationController.forward();
+    }
   }
 }
