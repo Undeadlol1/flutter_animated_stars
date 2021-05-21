@@ -1,4 +1,5 @@
 import 'dart:math' as Math;
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -14,11 +15,10 @@ class Star extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // rotate the canvas
+    final degrees = 15;
     final radians = angle * Math.pi / 180;
-    // TODO use RotationTransition?
     return Transform.translate(
-      offset: Offset(0, 0 + animationValue),
+      offset: _getOffset(),
       child: Transform.rotate(
         angle: radians,
         child: CustomPaint(
@@ -26,6 +26,17 @@ class Star extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Offset _getOffset() {
+    Offset center = Offset(animationValue, animationValue);
+
+    // TODO remove "200"
+    double x = 200 * Math.cos(angle) + center.dx;
+    double y = 200 * Math.sin(angle) + center.dy;
+
+    // return Offset(x, y);
+    return Offset(0, 0);
   }
 }
 
@@ -56,6 +67,7 @@ class _StarPainter extends CustomPainter {
   }
 
   void _drawStarTail() {
+    // _canvas.drawPoints(PointMode.points, [Offset(0, 1)], _whitePaint);
     for (var i = 0; i < 10; i++) {
       _canvas.drawCircle(
         Offset(_size.width / 2 - (14 + i * 5), _size.height / 2),
