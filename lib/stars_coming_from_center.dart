@@ -29,7 +29,7 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
       ..addListener(() => setState(() => {}))
       ..addStatusListener(_repeatAnimationWhenCompleted);
 
-    // animationController.forward();
+    animationController.forward();
   }
 
   @override
@@ -49,8 +49,8 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
         children: [
           _buildAnimatedStar(angle: 0),
           _buildAnimatedStar(angle: 180),
-          _buildAnimatedStar(angle: 540),
           _buildAnimatedStar(angle: 360),
+          _buildAnimatedStar(angle: 540),
         ],
       ),
     );
@@ -63,7 +63,8 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
       left: containerHeight / 2,
       child: Star(
         angle: angle,
-        animationProgressInPercentages: 50,
+        isTailVisible: animation.value > 60,
+        animationProgressInPercentages: animation.value,
       ),
     );
   }

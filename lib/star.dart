@@ -5,10 +5,12 @@ import 'package:flutter/rendering.dart';
 
 class Star extends StatelessWidget {
   final double angle;
+  final bool isTailVisible;
   final double animationProgressInPercentages;
   Star({
     Key? key,
     this.angle = 0,
+    this.isTailVisible = true,
     this.animationProgressInPercentages = 0,
   }) : super(key: key);
 
@@ -20,7 +22,7 @@ class Star extends StatelessWidget {
       child: Transform.translate(
         offset: Offset(0, animationProgressInPercentages),
         child: CustomPaint(
-          painter: _StarPainter(),
+          painter: _StarPainter(isTailVisible: isTailVisible),
         ),
       ),
     );
@@ -30,7 +32,9 @@ class Star extends StatelessWidget {
 class _StarPainter extends CustomPainter {
   late Size _size;
   late Canvas _canvas;
+  bool isTailVisible;
   Paint _whitePaint = Paint()..color = Colors.white;
+  _StarPainter({this.isTailVisible = true});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -39,7 +43,7 @@ class _StarPainter extends CustomPainter {
 
     _trimAndPaintCanvas();
     _drawStarHead();
-    _drawStarTail();
+    if (isTailVisible) _drawStarTail();
   }
 
   void _drawStarHead() {
@@ -63,13 +67,14 @@ class _StarPainter extends CustomPainter {
 
   void _trimAndPaintCanvas() {
     final canvasPadding = 5;
-    _canvas.clipRect(
-      Rect.fromPoints(
-        Offset((_size.width / 2) + canvasPadding, 0.0),
-        Offset((_size.width / 2) - canvasPadding, _size.width),
-      ),
-    );
-    _canvas.drawPaint(Paint()..color = Colors.red);
+    _canvas.saveLayer(Rect.largest, Paint()..color = Colors.red);
+    // _canvas.clipRect(
+    //   Rect.fromPoints(
+    //     Offset((_size.width / 2) + canvasPadding, 0.0),
+    //     Offset((_size.width / 2) - canvasPadding, _size.width),
+    //   ),
+    // );
+    _canvas.restore();
   }
 
   @override
