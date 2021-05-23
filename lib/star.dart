@@ -41,7 +41,6 @@ class _StarPainter extends CustomPainter {
     _size = size;
     _canvas = canvas;
 
-    _trimAndPaintCanvas();
     _drawStarHead();
     if (isTailVisible) _drawStarTail();
   }
@@ -49,32 +48,20 @@ class _StarPainter extends CustomPainter {
   void _drawStarHead() {
     _canvas.drawCircle(
       Offset(_size.width / 2, _size.height / 2),
-      2,
+      1.5,
       _whitePaint,
     );
   }
 
   void _drawStarTail() {
-    // _canvas.drawPoints(PointMode.points, [Offset(0, 1)], _whitePaint);
+    final List<Offset> points = [];
     for (var i = 0; i < 10; i++) {
-      _canvas.drawCircle(
-        Offset(_size.width / 2, _size.height / 2 - (14 + i * 5)),
-        1,
-        _whitePaint,
-      );
+      points.add(Offset(_size.width / 2, _size.height / 2 - (14 + i * 5)));
     }
-  }
-
-  void _trimAndPaintCanvas() {
-    final canvasPadding = 5;
-    _canvas.saveLayer(Rect.largest, Paint()..color = Colors.red);
-    // _canvas.clipRect(
-    //   Rect.fromPoints(
-    //     Offset((_size.width / 2) + canvasPadding, 0.0),
-    //     Offset((_size.width / 2) - canvasPadding, _size.width),
-    //   ),
-    // );
-    _canvas.restore();
+    final pointPaint = Paint()
+      ..strokeWidth = 2
+      ..color = Colors.white24;
+    _canvas.drawPoints(PointMode.points, points, pointPaint);
   }
 
   @override
