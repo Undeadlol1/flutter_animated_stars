@@ -66,12 +66,19 @@ class _StarPainter extends CustomPainter {
 
   List<Offset> _generateTriangularLineOfPoints() {
     final List<Offset> pointLocations = [];
-    for (var i = 0; i < 10; i++) {
-      pointLocations.add(Offset(
-        _size.width / 2,
-        _size.height / 2 - (14 + i * 5),
-      ));
+    final verticalCenter = _size.height / 2;
+    final horizontalCenter = _size.width / 2;
+
+    for (var positionInLine = 0; positionInLine < 10; positionInLine++) {
+      var howManyPointsShouldBeInThisSection = positionInLine * 0.4;
+      for (var i = 0; i < howManyPointsShouldBeInThisSection; i++) {
+        pointLocations.add(Offset(
+          horizontalCenter + (i * 5) * (i.isEven ? -1 : 1),
+          verticalCenter - (14 + positionInLine * 5),
+        ));
+      }
     }
+
     return pointLocations;
   }
 
