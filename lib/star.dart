@@ -32,8 +32,8 @@ class Star extends StatelessWidget {
 class _StarPainter extends CustomPainter {
   late Size _size;
   late Canvas _canvas;
+
   bool isTailVisible;
-  Paint _whitePaint = Paint()..color = Colors.white;
   _StarPainter({this.isTailVisible = true});
 
   @override
@@ -49,22 +49,30 @@ class _StarPainter extends CustomPainter {
     _canvas.drawCircle(
       Offset(_size.width / 2, _size.height / 2),
       1.5,
-      _whitePaint,
+      Paint()..color = Colors.white,
     );
   }
 
   void _drawStarTail() {
-    final pointLocations = List.generate(
-      10,
-      (index) => Offset(
-        _size.width / 2,
-        _size.height / 2 - (14 + index * 5),
-      ),
-    );
     final pointPaint = Paint()
       ..strokeWidth = 2
       ..color = Colors.white24;
-    _canvas.drawPoints(PointMode.points, pointLocations, pointPaint);
+    _canvas.drawPoints(
+      PointMode.points,
+      _generateTriangularLineOfPoints(),
+      pointPaint,
+    );
+  }
+
+  List<Offset> _generateTriangularLineOfPoints() {
+    final List<Offset> pointLocations = [];
+    for (var i = 0; i < 10; i++) {
+      pointLocations.add(Offset(
+        _size.width / 2,
+        _size.height / 2 - (14 + i * 5),
+      ));
+    }
+    return pointLocations;
   }
 
   @override
