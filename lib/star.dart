@@ -54,14 +54,17 @@ class _StarPainter extends CustomPainter {
   }
 
   void _drawStarTail() {
-    final List<Offset> points = [];
-    for (var i = 0; i < 10; i++) {
-      points.add(Offset(_size.width / 2, _size.height / 2 - (14 + i * 5)));
-    }
+    final pointLocations = List.generate(
+      10,
+      (index) => Offset(
+        _size.width / 2,
+        _size.height / 2 - (14 + index * 5),
+      ),
+    );
     final pointPaint = Paint()
       ..strokeWidth = 2
       ..color = Colors.white24;
-    _canvas.drawPoints(PointMode.points, points, pointPaint);
+    _canvas.drawPoints(PointMode.points, pointLocations, pointPaint);
   }
 
   @override
