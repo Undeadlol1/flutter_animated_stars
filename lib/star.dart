@@ -68,13 +68,16 @@ class _StarPainter extends CustomPainter {
     final List<Offset> pointLocations = [];
     final verticalCenter = _size.height / 2;
     final horizontalCenter = _size.width / 2;
+    final paddingBetweenHeadAndtail = 14;
 
-    for (var positionInLine = 0; positionInLine < 10; positionInLine++) {
-      var howManyPointsShouldBeInThisSection = positionInLine * 0.4;
+    // TODO instead of this create two arrays instead:
+    // TODO: HorizontalDotsLocations and VerticalDotsLocations
+    for (var positionInLine = 0; positionInLine < 15; positionInLine++) {
+      var howManyPointsShouldBeInThisSection = positionInLine * 2;
       for (var i = 0; i < howManyPointsShouldBeInThisSection; i++) {
         pointLocations.add(Offset(
-          horizontalCenter + (i * 5) * (i.isEven ? -1 : 1),
-          verticalCenter - (14 + positionInLine * 5),
+          horizontalCenter + (i * 0.5) * (i.isEven ? -1 : 1),
+          verticalCenter - (paddingBetweenHeadAndtail + positionInLine * 5),
         ));
       }
     }
