@@ -54,13 +54,12 @@ class _StarPainter extends CustomPainter {
   }
 
   void _drawStarTail() {
-    final pointPaint = Paint()
-      ..strokeWidth = 2
-      ..color = Colors.white24;
     _canvas.drawPoints(
       PointMode.points,
       _generateTriangularLineOfPoints(),
-      pointPaint,
+      Paint()
+        ..strokeWidth = 2
+        ..color = Colors.white24,
     );
   }
 
