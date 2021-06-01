@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 
-Paint _starPaint = Paint()..color = Colors.white;
-
 class StarsPainter extends CustomPainter {
-  double starPosition = 0.0;
-
   late Size _size;
   late Canvas _canvas;
+  final Paint _starPaint = Paint()..color = Colors.white;
 
+  double starPosition = 0.0;
   StarsPainter({required this.starPosition});
 
   @override
   void paint(Canvas canvas, Size size) {
     _size = size;
     _canvas = canvas;
-    canvas.clipRect(
-      Rect.fromPoints(
-        Offset(0, 0),
-        Offset(size.width, size.height),
-      ),
-    );
-    canvas.drawColor(Colors.black, BlendMode.clear);
+
+    _trimAndColorCanvas();
     _drawCanvasBorders();
     _drawCrossSection();
     _drawMultipleStars();
@@ -51,8 +44,6 @@ class StarsPainter extends CustomPainter {
   }
 
   void _drawCrossSection() {
-    // debugPrint('size.width: ${_size.width}');
-    // debugPrint('size.height: ${_size.height}');
     final paint = Paint()
       ..strokeWidth = 2
       ..color = Colors.deepPurple;
@@ -145,8 +136,19 @@ class StarsPainter extends CustomPainter {
     }
   }
 
+  void _trimAndColorCanvas() {
+    _canvas.clipRect(
+      Rect.fromPoints(
+        Offset(0, 0),
+        Offset(_size.width, _size.height),
+      ),
+    );
+    _canvas.drawColor(Colors.black, BlendMode.clear);
+  }
+
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
+    // TODO or should it be false?
     return true;
   }
 }
