@@ -26,7 +26,7 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
     );
 
     animation = Tween<double>(begin: 0, end: 100).animate(animationController)
-      ..addListener(() => setState(() => {}))
+      ..addListener(() => setState(() {}))
       ..addStatusListener(_repeatAnimationWhenCompleted);
 
     animationController.forward();
@@ -72,7 +72,8 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
   void _repeatAnimationWhenCompleted(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
       animationController.repeat();
-    } else if (status == AnimationStatus.dismissed) {
+    }
+    if (status == AnimationStatus.dismissed) {
       animationController.forward();
     }
   }
