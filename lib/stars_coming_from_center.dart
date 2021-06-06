@@ -23,13 +23,11 @@ class _StarsComingFromCenterState extends State<StarsComingFromCenter>
     animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 5),
-    );
+    )..forward();
 
     animation = Tween<double>(begin: 0, end: 100).animate(animationController)
       ..addListener(() => setState(() {}))
       ..addStatusListener(_repeatAnimationWhenCompleted);
-
-    animationController.forward();
   }
 
   @override
