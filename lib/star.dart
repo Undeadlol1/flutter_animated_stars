@@ -59,24 +59,25 @@ class _StarPainter extends CustomPainter {
       _generateTriangularLineOfPoints(),
       Paint()
         ..strokeWidth = 2
-        ..color = Colors.white24,
+        ..color = Colors.white12,
     );
   }
 
   List<Offset> _generateTriangularLineOfPoints() {
     final List<Offset> pointLocations = [];
+    final paddingBetweenHeadAndtail = 0;
     final verticalCenter = _size.height / 2;
     final horizontalCenter = _size.width / 2;
-    final paddingBetweenHeadAndtail = 14;
 
     // TODO instead of this create two arrays instead:
     // TODO: HorizontalDotsLocations and VerticalDotsLocations
     for (var positionInLine = 0; positionInLine < 15; positionInLine++) {
-      var howManyPointsShouldBeInThisSection = positionInLine * 2;
+      var howManyPointsShouldBeInThisSection = positionInLine * 0.8;
+
       for (var i = 0; i < howManyPointsShouldBeInThisSection; i++) {
         pointLocations.add(Offset(
           horizontalCenter + (i * 0.5) * (i.isEven ? -1 : 1),
-          verticalCenter - (paddingBetweenHeadAndtail + positionInLine * 5),
+          verticalCenter - (paddingBetweenHeadAndtail + positionInLine * 4),
         ));
       }
     }
