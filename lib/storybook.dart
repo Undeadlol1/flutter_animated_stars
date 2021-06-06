@@ -4,12 +4,12 @@ import 'package:flutter_animated_stars/star.dart';
 import 'package:flutter_animated_stars/stars_coming_from_center.dart';
 
 class Storybook extends StatelessWidget {
-  final _dashbook = Dashbook();
   Storybook({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    _dashbook.storiesOf('Star')
+    final dashbook = Dashbook();
+    dashbook.storiesOf('Star')
       ..decorator(CenterDecorator())
       ..add(
         'default',
@@ -34,11 +34,15 @@ class Storybook extends StatelessWidget {
         ),
       );
 
-    _dashbook
+    dashbook
         .storiesOf('StarsComingFromCenter')
         .decorator(CenterDecorator())
         .add('default', (ctx) => StarsComingFromCenter());
 
-    return Container(child: _dashbook);
+    return Container(
+      child: dashbook,
+      color: Colors.black,
+      height: double.infinity,
+    );
   }
 }
